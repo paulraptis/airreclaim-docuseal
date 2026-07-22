@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe 'AirReclaim signing contract' do
+RSpec.describe SubmitFormController do
   let(:show_view) { Rails.root.join('app/views/submit_form/show.html.erb').read }
   let(:submission_view) { Rails.root.join('app/views/submit_form/_submission_form.html.erb').read }
   let(:form_component) { Rails.root.join('app/javascript/submission_form/form.vue').read }
   let(:form_layout) { Rails.root.join('app/views/layouts/form.html.erb').read }
+  let(:attribution_view) { Rails.root.join('app/views/shared/_airreclaim_attribution.html.erb').read }
 
   it 'preserves the DocuSeal signer integration identifiers and endpoints' do
     expect(show_view).to include('id="scrollbox"')
@@ -25,7 +26,7 @@ RSpec.describe 'AirReclaim signing contract' do
     expect(form_layout).to include('airreclaim-form-shell')
     expect(show_view).to include("render('submit_form/banner')")
     expect(show_view).to include("render 'shared/airreclaim_attribution'")
-    expect(Rails.root.join('app/views/shared/_airreclaim_attribution.html.erb').read).to include('DocuSeal')
-    expect(Rails.root.join('app/views/shared/_airreclaim_attribution.html.erb').read).to include('AIRRECLAIM_DOCUSEAL_SOURCE_URL')
+    expect(attribution_view).to include('DocuSeal')
+    expect(attribution_view).to include('AIRRECLAIM_DOCUSEAL_SOURCE_URL')
   end
 end
