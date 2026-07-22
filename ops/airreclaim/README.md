@@ -5,7 +5,7 @@ This package keeps the public signing domain non-indexable, redirects its root t
 ## Release sequence
 
 1. Run the upstream test suite and asset build.
-2. Commit the release source and run `bash ops/airreclaim/build-release.sh`.
+2. Commit the release source and run `bash ops/airreclaim/build-release.sh`. Use `--source-only` only for a preliminary corresponding-source check.
 3. Push the image to the approved registry and record its immutable digest.
 4. Copy the generated source archive and checksum into `ops/airreclaim/public/source/` on the host.
 5. Set `AIRRECLAIM_DOCUSEAL_IMAGE` to the digest-pinned image reference.

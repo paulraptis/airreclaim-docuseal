@@ -21,9 +21,13 @@ mkdir -p "${release_root}"
 
 source_archive="${release_root}/airreclaim-docuseal-${release_version}.tar.gz"
 git -C "${repository_root}" archive --format=tar.gz --prefix="airreclaim-docuseal-${release_version}/" HEAD > "${source_archive}"
+git -C "${repository_root}" rev-parse HEAD > "${release_root}/source-revision.txt"
 
 image_tag="airreclaim/docuseal:${release_version}"
-shasum -a 256 "${source_archive}" > "${source_archive}.sha256"
+(
+  cd "${release_root}"
+  shasum -a 256 "$(basename "${source_archive}")" > "$(basename "${source_archive}").sha256"
+)
 
 if [[ "${source_only}" == "true" ]]; then
   echo "Built the exact source archive and checksum for ${release_version}."

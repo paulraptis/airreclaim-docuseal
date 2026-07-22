@@ -25,3 +25,5 @@ bash ops/airreclaim/build-release.sh
 ```
 
 The script refuses a dirty checkout, builds the exact checked-out source, exports a source archive, and writes SHA-256 checksums. The resulting image must be published under an immutable registry digest before production use.
+
+To prepare and verify only the corresponding-source package on a machine without Docker, run `bash ops/airreclaim/build-release.sh --source-only`. This does not satisfy the image-build or digest-recording release gates.
