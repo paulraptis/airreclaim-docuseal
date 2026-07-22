@@ -1,0 +1,26 @@
+sign.airreclaim.com {
+  header {
+    X-Robots-Tag "noindex, nofollow, noarchive"
+    X-Content-Type-Options "nosniff"
+    Referrer-Policy "strict-origin-when-cross-origin"
+  }
+
+  handle /robots.txt {
+    root * /srv/airreclaim-docuseal-public
+    file_server
+  }
+
+  handle /source/* {
+    root * /srv/airreclaim-docuseal-public
+    header Content-Disposition "attachment"
+    file_server
+  }
+
+  handle / {
+    redir https://airreclaim.com 302
+  }
+
+  handle {
+    reverse_proxy app:3000
+  }
+}
