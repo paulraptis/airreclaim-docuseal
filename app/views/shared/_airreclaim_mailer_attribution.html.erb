@@ -1,0 +1,7 @@
+<p>
+  <%= t('airreclaim.powered_by') %>
+  <a href="https://www.docuseal.com/start">DocuSeal</a>
+  <span aria-hidden="true">|</span>
+  <a href="<%= ENV.fetch('AIRRECLAIM_DOCUSEAL_SOURCE_URL', 'https://sign.airreclaim.com/source/airreclaim-docuseal-3.1.2-ar.1.tar.gz') %>"><%= t('airreclaim.source_code') %></a>
+</p>
+<p><a href="mailto:<%= ENV.fetch('AIRRECLAIM_SUPPORT_EMAIL', 'claims@airreclaim.com') %>"><%= ENV.fetch('AIRRECLAIM_SUPPORT_EMAIL', 'claims@airreclaim.com') %></a></p>

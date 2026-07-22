@@ -1,0 +1,8 @@
+en:
+  airreclaim:
+    secure_authorization: "Secure authorization"
+    protected_session: "Your signing session is protected"
+    help: "Help"
+    powered_by: "Document signing powered by"
+    source_code: "Source code"
+    return_to_claim: "Return to your claim"

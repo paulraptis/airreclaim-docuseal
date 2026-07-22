@@ -6,7 +6,7 @@
     role="status"
     tabindex="-1"
   >
-    <div class="font-medium text-2xl flex items-center space-x-1.5 mx-auto">
+    <div class="font-medium text-2xl flex items-center space-x-1.5 mx-auto text-center">
       <IconCircleCheck
         class="inline text-green-600"
         aria-hidden="true"
@@ -100,12 +100,19 @@
       v-if="attribution"
       class="text-center mt-4"
     >
-      {{ t('powered_by') }}
+      {{ t('document_signing_powered_by') }}
       <a
         href="https://www.docuseal.com/start"
         target="_blank"
+        rel="noopener noreferrer"
         class="underline"
-      >DocuSeal</a> - {{ t('open_source_documents_software') }}
+      >DocuSeal</a>
+      <span aria-hidden="true"> | </span>
+      <a
+        href="/source/airreclaim-docuseal-3.1.2-ar.1.tar.gz"
+        rel="nofollow"
+        class="underline"
+      >{{ t('source_code') }}</a>
     </div>
   </div>
 </template>

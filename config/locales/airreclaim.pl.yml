@@ -1,0 +1,8 @@
+pl:
+  airreclaim:
+    secure_authorization: "Bezpieczne upoważnienie"
+    protected_session: "Twoja sesja podpisu jest chroniona"
+    help: "Pomoc"
+    powered_by: "Podpis dokumentu obsługuje"
+    source_code: "Kod źródłowy"
+    return_to_claim: "Wróć do swojej sprawy"

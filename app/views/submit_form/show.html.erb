@@ -1,4 +1,4 @@
-<% content_for(:html_title, "#{@submitter.submission.name || @submitter.submission.template&.name} | DocuSeal") %>
+<% content_for(:html_title, "#{@submitter.submission.name || @submitter.submission.template&.name} | AirReclaim") %>
 <% I18n.with_locale(@submitter.account.locale) do %>
   <% content_for(:html_description, t('account_name_has_invited_you_to_fill_and_sign_documents_online_effortlessly_with_a_secure_fast_and_user_friendly_digital_document_signing_solution', account_name: @submitter.account.name)) %>
 <% end %>
@@ -14,11 +14,11 @@
 <div style="max-height: -webkit-fill-available;">
   <main id="scrollbox">
     <div id="sr_only_content"></div>
-    <div class="mx-auto block pb-72" style="max-width: 1000px">
+    <div class="mx-auto block pb-72 px-3 md:px-5" style="max-width: 1040px">
       <%# flex block w-full sticky top-0 z-50 space-x-2 items-center bg-yellow-100 p-2 border-y border-yellow-200 transition-transform duration-300 %>
       <%= local_assigns[:banner_html] || capture do %>
         <%= render('submit_form/banner') %>
-        <header id="signing_form_header" class="sticky min-[1230px]:static top-0 z-50 bg-base-100 py-2 px-2 flex items-center md:-mx-[8px]" style="margin-bottom: -16px">
+        <header id="signing_form_header" class="sticky min-[1230px]:static top-0 z-50 bg-base-100 py-3 px-3 flex items-center" style="margin-bottom: -16px">
           <h1 class="text-xl md:text-2xl font-medium focus:text-clip" style="width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
             <%= @submitter.submission.name || @submitter.submission.template&.name %>
           </h1>
@@ -131,7 +131,7 @@
       <% end %>
       <% schema.each do |item| %>
         <% document = @submitter.submission.schema_documents.find { |a| a.uuid == item['attachment_uuid'] } %>
-        <div id="document-<%= document.uuid %>">
+        <div id="document-<%= document.uuid %>" class="airreclaim-document">
           <div class="sr_only_content"></div>
           <% document_annots_index = document.metadata.dig('pdf', 'annotations')&.group_by { |e| e['page'] } || {} %>
           <% preview_images_index = document.preview_images.loaded? ? document.preview_images.index_by { |e| e.filename.base.to_i } : {} %>
@@ -159,7 +159,7 @@
           <% end %>
         </div>
       <% end %>
-      <%= render 'shared/attribution', link_path: '/start', account: @submitter.account, with_style: false %>
+      <%= render 'shared/airreclaim_attribution' %>
       <% if @form_configs[:policy_links].present? %>
         <div class="text-center md:text-neutral-500 md:pr-3 md:pb-3 md:text-sm md:text-left mt-2 md:mt-0 md:fixed md:bottom-0 md:right-0">
           <div class="md:max-w-[8rem] flex flex-wrap md:flex-col justify-center md:justify-start md:items-start space-x-2 md:space-x-0">

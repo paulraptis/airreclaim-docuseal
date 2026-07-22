@@ -3,10 +3,47 @@
   <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style></style>
+    <style>
+      body { margin: 0; padding: 0; background: #f7f9fb; color: #101820; font-family: Arial, Helvetica, sans-serif; }
+      .airreclaim-mail { width: 100%; padding: 28px 12px; background: #f7f9fb; }
+      .airreclaim-mail__card { width: 100%; max-width: 620px; margin: 0 auto; overflow: hidden; border: 1px solid #d8e1ea; border-radius: 14px; background: #fcfefd; }
+      .airreclaim-mail__header { padding: 22px 28px 18px; border-bottom: 1px solid #d8e1ea; }
+      .airreclaim-mail__header img { display: block; width: auto; height: 38px; }
+      .airreclaim-mail__context { margin-top: 12px; color: #526274; font-size: 13px; }
+      .airreclaim-mail__body { padding: 26px 28px; font-size: 16px; line-height: 1.6; }
+      .airreclaim-mail__body a { color: #123d92; }
+      .airreclaim-mail__button { display: inline-block; margin: 8px 0; padding: 13px 20px; border-radius: 10px; background: #123d92; color: #ffffff !important; font-weight: 700; text-decoration: none; }
+      .airreclaim-mail__footer { padding: 18px 28px 24px; border-top: 1px solid #d8e1ea; color: #526274; font-size: 12px; line-height: 1.6; }
+      .airreclaim-mail__footer a { color: #123d92; }
+      @media only screen and (max-width: 640px) {
+        .airreclaim-mail { padding: 12px 6px; }
+        .airreclaim-mail__header, .airreclaim-mail__body, .airreclaim-mail__footer { padding-left: 20px; padding-right: 20px; }
+      }
+    </style>
   </head>
   <body dir="<%= TextUtils.rtl?(yield) ? 'rtl' : 'auto' %>">
-    <%= yield %>
-    <%= render partial: 'shared/mailer_attribution' %>
+    <% if defined?(@submitter) && @submitter.present? %>
+      <table role="presentation" class="airreclaim-mail" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+            <table role="presentation" class="airreclaim-mail__card" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td class="airreclaim-mail__header">
+                  <a href="<%= ENV.fetch('AIRRECLAIM_WEBSITE_URL', 'https://airreclaim.com') %>">
+                    <img src="<%= ENV.fetch('AIRRECLAIM_LOGO_URL', 'https://airreclaim.com/brand/airreclaim-logo.webp') %>" alt="AirReclaim" width="174" height="42">
+                  </a>
+                  <div class="airreclaim-mail__context"><%= t('airreclaim.secure_authorization') %></div>
+                </td>
+              </tr>
+              <tr><td class="airreclaim-mail__body"><%= yield %></td></tr>
+              <tr><td class="airreclaim-mail__footer"><%= render partial: 'shared/airreclaim_mailer_attribution' %></td></tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    <% else %>
+      <%= yield %>
+      <%= render partial: 'shared/mailer_attribution' %>
+    <% end %>
   </body>
 </html>

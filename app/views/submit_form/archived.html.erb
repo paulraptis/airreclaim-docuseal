@@ -1,9 +1,8 @@
-<div class="max-w-md mx-auto px-2 mt-12 mb-4">
+<main class="max-w-2xl mx-auto px-3 pt-3 pb-6">
+  <%= render 'shared/airreclaim_brand_header' %>
+  <div class="airreclaim-status-card max-w-md mx-auto mt-6">
   <div class="space-y-6 mx-auto">
     <div class="space-y-6">
-      <div class="flex items-center justify-center">
-        <%= render 'start_form/banner' %>
-      </div>
       <div class="flex items-center bg-base-200 rounded-xl p-4 mb-4">
         <div class="flex items-center">
           <div class="mr-3">
@@ -17,5 +16,6 @@
       </div>
     </div>
   </div>
-</div>
-<%= render 'shared/attribution', link_path: '/start', account: @submitter.account %>
+  </div>
+</main>
+<%= render 'shared/airreclaim_attribution' %>

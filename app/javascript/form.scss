@@ -78,3 +78,232 @@ button[disabled] .enabled, button.btn-disabled .enabled {
 .font-courier {
   font-family: "Courier New", Consolas, "Liberation Mono", monospace, ui-monospace, SFMono-Regular, Menlo, Monaco;
 }
+
+:root {
+  --airreclaim-ink: #101820;
+  --airreclaim-muted: #526274;
+  --airreclaim-line: #d8e1ea;
+  --airreclaim-mist: #f7f9fb;
+  --airreclaim-white: #fcfefd;
+  --airreclaim-navy: #08245c;
+  --airreclaim-cobalt: #123d92;
+  --airreclaim-cobalt-hover: #08245c;
+  --airreclaim-mint: #eaf8f5;
+  --airreclaim-teal: #08776f;
+}
+
+.airreclaim-form-shell {
+  min-height: 100dvh;
+  color: var(--airreclaim-ink);
+  background:
+    linear-gradient(180deg, #edf4fb 0, var(--airreclaim-mist) 18rem, var(--airreclaim-mist) 100%);
+  font-family: Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.airreclaim-form-shell #scrollbox {
+  min-height: 100dvh;
+}
+
+.airreclaim-brandbar {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) auto minmax(150px, 1fr);
+  align-items: center;
+  gap: 1rem;
+  margin: 1.25rem 0 .75rem;
+  padding: .9rem 1rem;
+  border: 1px solid rgb(216 225 234 / .9);
+  border-radius: .875rem;
+  background: rgb(252 254 253 / .98);
+  box-shadow: 0 12px 36px rgb(8 36 92 / .08);
+}
+
+.airreclaim-brandbar__logo {
+  width: fit-content;
+}
+
+.airreclaim-brandbar__logo img {
+  display: block;
+  width: auto;
+  height: 2.25rem;
+  object-fit: contain;
+}
+
+.airreclaim-brandbar__context {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.airreclaim-brandbar__context strong {
+  color: var(--airreclaim-navy);
+  font-size: .95rem;
+}
+
+.airreclaim-brandbar__context span {
+  color: var(--airreclaim-muted);
+  font-size: .75rem;
+}
+
+.airreclaim-brandbar__support {
+  justify-self: end;
+  color: var(--airreclaim-cobalt);
+  font-size: .875rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.airreclaim-brandbar__support:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.airreclaim-form-shell #signing_form_header {
+  border: 1px solid var(--airreclaim-line);
+  border-radius: .875rem;
+  background: rgb(252 254 253 / .98);
+  box-shadow: 0 10px 30px rgb(8 36 92 / .07);
+}
+
+.airreclaim-form-shell #signing_form_header h1 {
+  color: var(--airreclaim-navy);
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+
+.airreclaim-document page-container {
+  overflow: hidden;
+  border: 1px solid var(--airreclaim-line);
+  border-radius: .75rem;
+  background: white;
+  box-shadow: 0 20px 54px rgb(8 36 92 / .12);
+}
+
+.airreclaim-form-shell .base-button,
+.airreclaim-form-shell #complete_form_button,
+.airreclaim-form-shell .complete-button,
+.airreclaim-form-shell .btn-neutral:not(download-button) {
+  border-color: var(--airreclaim-cobalt);
+  background: var(--airreclaim-cobalt);
+  color: white;
+  border-radius: .75rem;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.airreclaim-form-shell .base-button:hover,
+.airreclaim-form-shell #complete_form_button:hover,
+.airreclaim-form-shell .complete-button:hover {
+  border-color: var(--airreclaim-cobalt-hover);
+  background: var(--airreclaim-cobalt-hover);
+  box-shadow: 0 8px 20px rgb(8 36 92 / .16);
+}
+
+.airreclaim-form-shell button:active,
+.airreclaim-form-shell [role="button"]:active {
+  transform: translateY(1px);
+}
+
+.airreclaim-form-shell button:focus-visible,
+.airreclaim-form-shell a:focus-visible,
+.airreclaim-form-shell input:focus-visible,
+.airreclaim-form-shell textarea:focus-visible,
+.airreclaim-form-shell select:focus-visible,
+.airreclaim-form-shell [role="button"]:focus-visible {
+  outline: 3px solid rgb(15 95 215 / .32);
+  outline-offset: 3px;
+}
+
+.airreclaim-form-shell .white-button {
+  border-color: var(--airreclaim-line);
+  border-radius: .75rem;
+  color: var(--airreclaim-navy);
+}
+
+.airreclaim-form-shell .base-input,
+.airreclaim-form-shell .base-textarea,
+.airreclaim-form-shell select {
+  border-color: #aebdcb;
+  border-radius: .75rem;
+  color: var(--airreclaim-ink);
+}
+
+.airreclaim-form-shell .completed-form {
+  border: 1px solid var(--airreclaim-line);
+  border-radius: .875rem;
+  padding: 1.5rem;
+  background: var(--airreclaim-white);
+  box-shadow: 0 18px 48px rgb(8 36 92 / .12);
+}
+
+.airreclaim-status-card {
+  border: 1px solid var(--airreclaim-line);
+  border-radius: .875rem;
+  padding: 1.25rem;
+  background: var(--airreclaim-white);
+  box-shadow: 0 18px 48px rgb(8 36 92 / .12);
+}
+
+.airreclaim-status-card .bg-base-200 {
+  background: var(--airreclaim-mint);
+}
+
+.airreclaim-form-shell .completed-form .text-green-600 {
+  color: var(--airreclaim-teal);
+}
+
+.airreclaim-attribution {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  padding: 1rem .75rem 1.5rem;
+  color: var(--airreclaim-muted);
+  font-size: .75rem;
+  text-align: center;
+}
+
+.airreclaim-attribution a {
+  color: var(--airreclaim-cobalt);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 767px) {
+  .airreclaim-brandbar {
+    grid-template-columns: 1fr auto;
+    margin-top: .75rem;
+    padding: .75rem;
+  }
+
+  .airreclaim-brandbar__logo img {
+    height: 1.9rem;
+  }
+
+  .airreclaim-brandbar__context {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .airreclaim-form-shell #signing_form_header {
+    top: .5rem;
+  }
+
+  .airreclaim-document page-container {
+    border-radius: .5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .airreclaim-form-shell *,
+  .airreclaim-form-shell *::before,
+  .airreclaim-form-shell *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

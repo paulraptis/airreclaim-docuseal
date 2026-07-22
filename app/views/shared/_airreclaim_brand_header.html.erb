@@ -1,0 +1,10 @@
+<div class="airreclaim-brandbar" role="banner">
+  <a href="<%= ENV.fetch('AIRRECLAIM_WEBSITE_URL', 'https://airreclaim.com') %>" class="airreclaim-brandbar__logo" aria-label="AirReclaim home">
+    <img src="<%= ENV.fetch('AIRRECLAIM_LOGO_URL', 'https://airreclaim.com/brand/airreclaim-logo.webp') %>" alt="AirReclaim" width="174" height="42">
+  </a>
+  <div class="airreclaim-brandbar__context">
+    <strong><%= t('airreclaim.secure_authorization') %></strong>
+    <span><%= t('airreclaim.protected_session') %></span>
+  </div>
+  <a href="mailto:<%= ENV.fetch('AIRRECLAIM_SUPPORT_EMAIL', 'claims@airreclaim.com') %>" class="airreclaim-brandbar__support"><%= t('airreclaim.help') %></a>
+</div>
