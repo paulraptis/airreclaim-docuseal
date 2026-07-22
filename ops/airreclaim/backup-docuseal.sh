@@ -25,7 +25,7 @@ sqlite3 "${database_path}" ".backup '${snapshot_directory}/db.sqlite3'"
 tar -C "$(dirname "${data_directory}")" -czf "${snapshot_directory}/docuseal-data.tar.gz" "$(basename "${data_directory}")"
 
 configuration_paths=()
-for path in .env docker-compose.yml Caddyfile public caddy-data caddy-config; do
+for path in .env docker-compose.yml Caddyfile public caddy caddy-data caddy-config; do
   if [[ -e "${deployment_directory}/${path}" ]]; then
     configuration_paths+=("${path}")
   fi
