@@ -1,6 +1,6 @@
 # AirReclaim DocuSeal modifications
 
-Release: `3.1.2-ar.5`
+Release: `3.1.2-ar.6`
 
 This repository is based on DocuSeal `3.1.2` at commit `673cc1e0dfd50936a8cd07e5c57da9329bd2b4e0`.
 
