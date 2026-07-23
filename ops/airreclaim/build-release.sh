@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-release_version="3.1.2-ar.6"
+release_version="3.1.2-ar.7"
 repository_root="$(git rev-parse --show-toplevel)"
 source_only=false
 

@@ -1,4 +1,4 @@
-<% if @submitter %>
+<% if @submitter&.submission %>
   <% signer_document_name = @submitter.submission.name || @submitter.submission.template&.name %>
   <% content_for(:html_title, "#{signer_document_name} | AirReclaim", flush: true) if signer_document_name.present? %>
 <% end %>
