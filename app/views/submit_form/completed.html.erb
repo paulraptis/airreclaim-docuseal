@@ -28,18 +28,20 @@
           <div class="py-2"></div>
         <% end %>
       <% end %>
-      <% if @submitter.completed_at > 30.minutes.ago || (current_user && current_user.account.submitters.exists?(id: @submitter.id)) %>
-        <download-button role="button" tabindex="0" aria-label="<%= t('download_documents') %>" data-src="<%= submit_form_documents_path(@submitter.slug) %>" class="base-button w-full">
-          <span class="flex items-center justify-center space-x-2" data-target="download-button.defaultButton">
-            <%= svg_icon('download', class: 'w-6 h-6') %>
-            <span><%= t('download_documents') %></span>
-          </span>
-          <span class="flex items-center justify-center space-x-2 hidden" data-target="download-button.loadingButton">
-            <%= svg_icon('loader', class: 'w-6 h-6 animate-spin') %>
-            <span><%= t('downloading') %></span>
-          </span>
-        </download-button>
-      <% end %>
+      <download-button role="button" tabindex="0" aria-label="<%= t('download_documents') %>" data-src="<%= submit_form_documents_path(@submitter.slug) %>" class="base-button w-full">
+        <span class="flex items-center justify-center space-x-2" data-target="download-button.defaultButton">
+          <%= svg_icon('download', class: 'w-6 h-6') %>
+          <span><%= t('download_documents') %></span>
+        </span>
+        <span class="flex items-center justify-center space-x-2 hidden" data-target="download-button.loadingButton">
+          <%= svg_icon('loader', class: 'w-6 h-6 animate-spin') %>
+          <span><%= t('downloading') %></span>
+        </span>
+      </download-button>
+      <div class="hidden mt-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800" data-download-error role="alert" tabindex="-1">
+        <p><%= t('airreclaim.download_error') %></p>
+        <button type="button" class="mt-2 font-semibold underline underline-offset-2" data-download-retry><%= t('airreclaim.retry_download') %></button>
+      </div>
     </div>
     <% undefined_submitters = Templates.filter_undefined_submitters(@submitter.submission.template_submitters) %>
     <% if undefined_submitters.size == 1 && undefined_submitters.first['uuid'] == @submitter.uuid && @submitter.completed_at? && @submitter.completed_at > 14.days.ago && %w[api embed mcp].exclude?(@submitter.submission.source) && @submitter.account.account_configs.find_or_initialize_by(key: AccountConfig::ALLOW_TO_RESUBMIT).value != false && @submitter.template && !@submitter.template.archived_at? %>

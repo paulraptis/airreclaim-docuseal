@@ -6,3 +6,5 @@ en:
     powered_by: "Document signing powered by"
     source_code: "Source code"
     return_to_claim: "Return to your claim"
+    download_error: "We could not prepare your signed document. Please try again."
+    retry_download: "Try download again"

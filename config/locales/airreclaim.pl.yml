@@ -6,3 +6,5 @@ pl:
     powered_by: "Podpis dokumentu obsługuje"
     source_code: "Kod źródłowy"
     return_to_claim: "Wróć do swojej sprawy"
+    download_error: "Nie udało się przygotować podpisanego dokumentu. Spróbuj ponownie."
+    retry_download: "Spróbuj pobrać ponownie"

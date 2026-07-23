@@ -7,6 +7,8 @@ RSpec.describe SubmitFormController do
   let(:completed_component) { Rails.root.join('app/javascript/submission_form/completed.vue').read }
   let(:form_styles) { Rails.root.join('app/javascript/form.scss').read }
   let(:form_layout) { Rails.root.join('app/views/layouts/form.html.erb').read }
+  let(:completed_view) { Rails.root.join('app/views/submit_form/completed.html.erb').read }
+  let(:download_element) { Rails.root.join('app/javascript/elements/download_button.js').read }
   let(:attribution_view) { Rails.root.join('app/views/shared/_airreclaim_attribution.html.erb').read }
 
   it 'preserves the DocuSeal signer integration identifiers and endpoints' do
@@ -35,6 +37,15 @@ RSpec.describe SubmitFormController do
     expect(completed_component).to include('this.isDownloading = false')
     expect(completed_component).to include('if (!response.ok)')
     expect(completed_component).to include('if (!blob.size)')
+    expect(completed_view).to include('data-src="<%= submit_form_documents_path(@submitter.slug) %>"')
+    expect(completed_view).not_to include('@submitter.completed_at > 30.minutes.ago')
+    expect(completed_view).to include('data-download-error role="alert"')
+    expect(completed_view).to include('data-download-retry')
+    expect(download_element).not_to include('alert(')
+    expect(download_element).to include('if (!response.ok)')
+    expect(download_element).to include("contentType.includes('application/pdf')")
+    expect(download_element).to include('if (!blob.size)')
+    expect(download_element).to include('this.setLoading(false)')
   end
 
   it 'keeps a 24px desktop and 16px mobile gap between the action bar and document' do
