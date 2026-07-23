@@ -59,6 +59,7 @@
         v-if="!isWebView && withDownloadButton"
         class="base-button flex items-center space-x-1 w-full completed-form-download-button"
         :disabled="isDownloading"
+        :aria-describedby="downloadError ? 'completed_download_error' : undefined"
         @click.prevent="download"
       >
         <IconInnerShadowTop
@@ -71,9 +72,18 @@
           aria-hidden="true"
         />
         <span>
-          {{ t('download') }}
+          {{ downloadError ? t('try_download_again') : t('download') }}
         </span>
       </button>
+      <div
+        v-if="downloadError"
+        id="completed_download_error"
+        class="completed-form-download-error"
+        role="alert"
+        aria-live="assertive"
+      >
+        {{ t('failed_to_download_files') }}
+      </div>
       <a
         v-if="isDemo"
         target="_blank"
@@ -109,7 +119,7 @@
       >DocuSeal</a>
       <span aria-hidden="true"> | </span>
       <a
-        href="/source/airreclaim-docuseal-3.1.2-ar.2.tar.gz"
+        href="/source/airreclaim-docuseal-3.1.2-ar.3.tar.gz"
         rel="nofollow"
         class="underline"
       >{{ t('source_code') }}</a>
@@ -184,6 +194,10 @@ export default {
       required: false,
       default: () => ({})
     },
+    completedDownloadUrl: {
+      type: String,
+      required: true
+    },
     completedButton: {
       type: Object,
       required: false,
@@ -198,7 +212,8 @@ export default {
   data () {
     return {
       isSendingCopy: false,
-      isDownloading: false
+      isDownloading: false,
+      downloadError: false
     }
   },
   computed: {
@@ -234,77 +249,113 @@ export default {
         this.isSendingCopy = false
       })
     },
-    download () {
+    async download () {
       this.isDownloading = true
+      this.downloadError = false
 
-      fetch(this.baseUrl + `/submitters/${this.submitterSlug}/download`, {
-        method: 'GET',
-        ...this.fetchOptions
-      }).then(async (response) => {
-        if (response.ok) {
-          const urls = await response.json()
-          const isMobileSafariIos = 'ontouchstart' in window && navigator.maxTouchPoints > 0 && /AppleWebKit/i.test(navigator.userAgent)
-          const isSafariIos = isMobileSafariIos || /iPhone|iPad|iPod/i.test(navigator.userAgent)
+      try {
+        const response = await fetch(this.completedDownloadUrl, {
+          method: 'GET',
+          ...this.fetchOptions
+        })
 
-          if (isSafariIos && urls.length > 1) {
-            this.downloadSafariIos(urls)
-          } else {
-            this.downloadUrls(urls)
-          }
+        if (!response.ok) {
+          throw new Error('Completed document URL request failed')
+        }
+
+        const urls = await response.json()
+
+        if (!Array.isArray(urls) || urls.length === 0 || urls.some((url) => typeof url !== 'string' || !url)) {
+          throw new Error('Completed document URL response is invalid')
+        }
+
+        const isMobileSafariIos = 'ontouchstart' in window && navigator.maxTouchPoints > 0 && /AppleWebKit/i.test(navigator.userAgent)
+        const isSafariIos = isMobileSafariIos || /iPhone|iPad|iPod/i.test(navigator.userAgent)
+
+        if (isSafariIos && urls.length > 1) {
+          await this.downloadSafariIos(urls)
         } else {
-          alert(this.t('failed_to_download_files'))
+          await this.downloadUrls(urls)
         }
-      })
+      } catch (_error) {
+        this.downloadError = true
+      } finally {
+        this.isDownloading = false
+      }
     },
-    downloadUrls (urls) {
+    async fetchDocumentBlob (url) {
+      const response = await fetch(url)
+
+      if (!response.ok) {
+        throw new Error('Completed document request failed')
+      }
+
+      const blob = await response.blob()
+
+      if (!blob.size) {
+        throw new Error('Completed document is empty')
+      }
+
+      return blob
+    },
+    filenameFromUrl (url) {
+      try {
+        const pathname = new URL(url, window.location.origin).pathname
+
+        return decodeURIComponent(pathname.split('/').filter(Boolean).pop()) || 'signed-document.pdf'
+      } catch (_error) {
+        return 'signed-document.pdf'
+      }
+    },
+    async downloadUrls (urls) {
       const fileRequests = urls.map((url) => {
-        return () => {
-          return fetch(url).then(async (resp) => {
-            const blobUrl = URL.createObjectURL(await resp.blob())
-            const link = document.createElement('a')
+        return async () => {
+          const blobUrl = URL.createObjectURL(await this.fetchDocumentBlob(url))
+          const link = document.createElement('a')
 
-            link.href = blobUrl
-            link.setAttribute('download', decodeURI(url.split('/').pop()))
+          link.href = blobUrl
+          link.setAttribute('download', this.filenameFromUrl(url))
+          link.style.display = 'none'
+          document.body.appendChild(link)
+          link.click()
+          link.remove()
 
-            link.click()
-
-            URL.revokeObjectURL(blobUrl)
-          })
+          window.setTimeout(() => URL.revokeObjectURL(blobUrl), 1000)
         }
       })
 
-      fileRequests.reduce(
+      await fileRequests.reduce(
         (prevPromise, request) => prevPromise.then(() => request()),
         Promise.resolve()
-      ).finally(() => {
-        this.isDownloading = false
-      })
+      )
     },
-    downloadSafariIos (urls) {
+    async downloadSafariIos (urls) {
       const fileRequests = urls.map((url) => {
-        return fetch(url).then(async (resp) => {
-          const blob = await resp.blob()
+        return this.fetchDocumentBlob(url).then((blob) => {
           const blobUrl = URL.createObjectURL(blob.slice(0, blob.size, 'application/octet-stream'))
           const link = document.createElement('a')
 
           link.href = blobUrl
-          link.setAttribute('download', decodeURI(url.split('/').pop()))
+          link.setAttribute('download', this.filenameFromUrl(url))
+          link.style.display = 'none'
+          document.body.appendChild(link)
 
           return link
         })
       })
 
-      Promise.all(fileRequests).then((links) => {
-        links.forEach((link, index) => {
-          setTimeout(() => {
-            link.click()
+      const links = await Promise.all(fileRequests)
 
-            URL.revokeObjectURL(link.href)
+      await Promise.all(links.map((link, index) => {
+        return new Promise((resolve) => {
+          window.setTimeout(() => {
+            link.click()
+            link.remove()
+            window.setTimeout(() => URL.revokeObjectURL(link.href), 1000)
+            resolve()
           }, index * 50)
         })
-      }).finally(() => {
-        this.isDownloading = false
-      })
+      }))
     }
   }
 }

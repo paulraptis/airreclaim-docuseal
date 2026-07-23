@@ -12,7 +12,7 @@ services:
       AIRRECLAIM_WEBSITE_URL: https://airreclaim.com
       AIRRECLAIM_LOGO_URL: https://airreclaim.com/brand/airreclaim-logo.webp
       AIRRECLAIM_SUPPORT_EMAIL: claims@airreclaim.com
-      AIRRECLAIM_DOCUSEAL_SOURCE_URL: https://sign.airreclaim.com/source/airreclaim-docuseal-3.1.2-ar.2.tar.gz
+      AIRRECLAIM_DOCUSEAL_SOURCE_URL: https://sign.airreclaim.com/source/airreclaim-docuseal-3.1.2-ar.3.tar.gz
       CERTS:
       TIMESERVER_URL:
       TRUSTED_CERTS:

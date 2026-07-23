@@ -1,6 +1,6 @@
 # AirReclaim DocuSeal modifications
 
-Release: `3.1.2-ar.2`
+Release: `3.1.2-ar.3`
 
 This repository is based on DocuSeal `3.1.2` at commit `673cc1e0dfd50936a8cd07e5c57da9329bd2b4e0`.
 
@@ -9,6 +9,7 @@ AirReclaim changes are intentionally limited to:
 - public signer layout and styling;
 - completed, declined, expired, archived, awaiting, delegated, and success presentation;
 - signer invitation, completion, decline, OTP, and document-copy email presentation;
+- canonical authorized-signer completed downloads with fresh five-minute document URLs and accessible retry handling;
 - text-only DocuSeal attribution and corresponding-source link;
 - deterministic deployment, backup, source-archive, and verification tooling.
 

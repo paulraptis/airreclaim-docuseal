@@ -642,6 +642,7 @@
         :completed-button="completedRedirectUrl ? {} : completedButton"
         :fetch-options="fetchOptions"
         :completed-message="completedRedirectUrl ? {} : completedMessage"
+        :completed-download-url="completedDownloadUrl"
         :with-send-copy-button="withSendCopyButton && !completedRedirectUrl"
         :with-download-button="withDownloadButton && !completedRedirectUrl && !dryRun"
         :with-confetti="withConfetti"
@@ -1025,6 +1026,11 @@ export default {
       default: true
     },
     completedRedirectUrl: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    completedDownloadUrl: {
       type: String,
       required: false,
       default: ''
