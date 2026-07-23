@@ -46,6 +46,8 @@ RSpec.describe SubmitFormController do
   it 'keeps CSRF protection and visible DocuSeal attribution while applying AirReclaim branding' do
     expect(form_layout).to include('csrf_meta_tags')
     expect(form_layout).to include('airreclaim-form-shell')
+    expect(form_layout).to include('"#{signer_document_name} | AirReclaim"')
+    expect(form_layout).to include('flush: true')
     expect(show_view).to include("render('submit_form/banner')")
     expect(show_view).to include("render 'shared/airreclaim_attribution'")
     expect(attribution_view).to include('DocuSeal')

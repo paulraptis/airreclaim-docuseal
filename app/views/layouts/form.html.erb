@@ -1,3 +1,7 @@
+<% if @submitter %>
+  <% signer_document_name = @submitter.submission.name || @submitter.submission.template&.name %>
+  <% content_for(:html_title, "#{signer_document_name} | AirReclaim", flush: true) if signer_document_name.present? %>
+<% end %>
 <!DOCTYPE html>
 <html data-theme="docuseal" lang="<%= I18n.locale %>">
   <head>
