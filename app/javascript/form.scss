@@ -160,7 +160,7 @@ button[disabled] .enabled, button.btn-disabled .enabled {
 }
 
 .airreclaim-form-shell #signing_form_header {
-  margin-bottom: .5rem;
+  margin-bottom: 1.5rem;
   border: 1px solid var(--airreclaim-line);
   border-radius: .875rem;
   background: rgb(252 254 253 / .98);
@@ -302,7 +302,7 @@ button[disabled] .enabled, button.btn-disabled .enabled {
 
   .airreclaim-form-shell #signing_form_header {
     top: .5rem;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
   }
 
   .airreclaim-document page-container {

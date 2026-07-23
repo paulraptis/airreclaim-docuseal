@@ -39,8 +39,8 @@ RSpec.describe SubmitFormController do
 
   it 'keeps a 24px desktop and 16px mobile gap between the action bar and document' do
     expect(show_view).not_to include('margin-bottom: -16px')
-    expect(form_styles).to include('margin-bottom: .5rem;')
-    expect(form_styles).to match(/@media \(max-width: 767px\).*?#signing_form_header \{.*?margin-bottom: 0;/m)
+    expect(form_styles).to include('margin-bottom: 1.5rem;')
+    expect(form_styles).to match(/@media \(max-width: 767px\).*?#signing_form_header \{.*?margin-bottom: 1rem;/m)
   end
 
   it 'keeps CSRF protection and visible DocuSeal attribution while applying AirReclaim branding' do
