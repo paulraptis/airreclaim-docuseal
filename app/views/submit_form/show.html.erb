@@ -18,11 +18,11 @@
       <%# flex block w-full sticky top-0 z-50 space-x-2 items-center bg-yellow-100 p-2 border-y border-yellow-200 transition-transform duration-300 %>
       <%= local_assigns[:banner_html] || capture do %>
         <%= render('submit_form/banner') %>
-        <header id="signing_form_header" class="sticky min-[1230px]:static top-0 z-50 bg-base-100 py-3 px-3 flex items-center">
-          <h1 class="text-xl md:text-2xl font-medium focus:text-clip" style="width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+        <header id="signing_form_header" class="sticky min-[1230px]:static top-0 z-50 bg-base-100 py-3 px-3 flex items-start md:items-center gap-2">
+          <h1 class="min-w-0 flex-1 text-base leading-tight md:text-2xl md:leading-normal font-medium break-words">
             <%= @submitter.submission.name || @submitter.submission.template&.name %>
           </h1>
-          <div class="flex items-center gap-2 group" style="margin-left: 20px; flex-shrink: 0">
+          <div class="flex shrink-0 items-center gap-2 group md:ml-5">
             <% if @form_configs[:with_decline] %>
               <modal-button data-target="<%= decline_modal_id = SecureRandom.uuid %>" class="hidden group-has-[.complete-button]:flex">
                 <button type="button" class="btn btn-sm md:!px-5 px-2" aria-label="<%= t(:decline) %>">

@@ -54,6 +54,13 @@ RSpec.describe SubmitFormController do
     expect(form_styles).to match(/@media \(max-width: 767px\).*?#signing_form_header \{.*?margin-bottom: 1rem;/m)
   end
 
+  it 'keeps the document name readable beside the mobile signing actions' do
+    expect(show_view).to include('text-base leading-tight md:text-2xl')
+    expect(show_view).to include('min-w-0 flex-1')
+    expect(show_view).to include('break-words')
+    expect(show_view).not_to include('text-overflow: ellipsis; white-space: nowrap;')
+  end
+
   it 'keeps CSRF protection and visible DocuSeal attribution while applying AirReclaim branding' do
     expect(form_layout).to include('csrf_meta_tags')
     expect(form_layout).to include('airreclaim-form-shell')
