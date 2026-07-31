@@ -8,3 +8,7 @@ pl:
     return_to_claim: "Wróć do swojej sprawy"
     download_error: "Nie udało się przygotować podpisanego dokumentu. Spróbuj ponownie."
     retry_download: "Spróbuj pobrać ponownie"
+    document_zoom: "Powiększenie dokumentu"
+    zoom_out: "Pomniejsz"
+    reset_zoom: "Resetuj powiększenie"
+    zoom_in: "Powiększ"

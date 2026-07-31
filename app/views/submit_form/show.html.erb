@@ -129,6 +129,16 @@
           <% end %>
         </scroll-buttons>
       <% end %>
+      <document-zoom class="airreclaim-document-zoom">
+        <div class="airreclaim-document-zoom__toolbar" role="group" aria-label="<%= t('airreclaim.document_zoom') %>">
+          <button type="button" class="airreclaim-document-zoom__button" data-document-zoom-action="out" aria-label="<%= t('airreclaim.zoom_out') %>">−</button>
+          <button type="button" class="airreclaim-document-zoom__reset" data-document-zoom-action="reset" aria-label="<%= t('airreclaim.reset_zoom') %>">
+            <output data-document-zoom-output aria-live="polite">100%</output>
+          </button>
+          <button type="button" class="airreclaim-document-zoom__button" data-document-zoom-action="in" aria-label="<%= t('airreclaim.zoom_in') %>">+</button>
+        </div>
+        <div class="airreclaim-document-zoom__viewport" data-document-zoom-viewport>
+          <div class="airreclaim-document-zoom__canvas" data-document-zoom-canvas>
       <% schema.each do |item| %>
         <% document = @submitter.submission.schema_documents.find { |a| a.uuid == item['attachment_uuid'] } %>
         <div id="document-<%= document.uuid %>" class="airreclaim-document">
@@ -159,6 +169,9 @@
           <% end %>
         </div>
       <% end %>
+          </div>
+        </div>
+      </document-zoom>
       <%= render 'shared/airreclaim_attribution' %>
       <% if @form_configs[:policy_links].present? %>
         <div class="text-center md:text-neutral-500 md:pr-3 md:pb-3 md:text-sm md:text-left mt-2 md:mt-0 md:fixed md:bottom-0 md:right-0">

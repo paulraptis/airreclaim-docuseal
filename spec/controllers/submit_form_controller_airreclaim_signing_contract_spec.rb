@@ -10,6 +10,7 @@ RSpec.describe SubmitFormController do
   let(:completed_view) { Rails.root.join('app/views/submit_form/completed.html.erb').read }
   let(:download_element) { Rails.root.join('app/javascript/elements/download_button.js').read }
   let(:attribution_view) { Rails.root.join('app/views/shared/_airreclaim_attribution.html.erb').read }
+  let(:document_zoom_element) { Rails.root.join('app/javascript/elements/document_zoom.js').read }
 
   it 'preserves the DocuSeal signer integration identifiers and endpoints' do
     expect(show_view).to include('id="scrollbox"')
@@ -52,6 +53,21 @@ RSpec.describe SubmitFormController do
     expect(show_view).not_to include('margin-bottom: -16px')
     expect(form_styles).to include('margin-bottom: 1.5rem;')
     expect(form_styles).to match(/@media \(max-width: 767px\).*?#signing_form_header \{.*?margin-bottom: 1rem;/m)
+  end
+
+  it 'keeps fixed signing chrome outside a bounded document-only zoom surface' do
+    expect(show_view).to include('<document-zoom class="airreclaim-document-zoom">')
+    expect(show_view).to include('data-document-zoom-viewport')
+    expect(show_view).to include('data-document-zoom-canvas')
+    expect(show_view.index('id="signing_form_header"')).to be < show_view.index('<document-zoom')
+    expect(show_view.index("render 'submit_form/submission_form'")).to be > show_view.index('</document-zoom>')
+    expect(document_zoom_element).to include('const MIN_SCALE = 1')
+    expect(document_zoom_element).to include('const MAX_SCALE = 2')
+    expect(document_zoom_element).to include("event.preventDefault()")
+    expect(form_styles).to include('touch-action: pan-y;')
+    expect(form_styles).to include('env(safe-area-inset-bottom)')
+    expect(form_layout).to include('width=device-width, initial-scale=1.0')
+    expect(form_layout).not_to include('user-scalable=no')
   end
 
   it 'keeps the document name readable beside the mobile signing actions' do

@@ -8,3 +8,7 @@ en:
     return_to_claim: "Return to your claim"
     download_error: "We could not prepare your signed document. Please try again."
     retry_download: "Try download again"
+    document_zoom: "Document zoom"
+    zoom_out: "Zoom out"
+    reset_zoom: "Reset zoom"
+    zoom_in: "Zoom in"

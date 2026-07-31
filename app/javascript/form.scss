@@ -181,6 +181,81 @@ button[disabled] .enabled, button.btn-disabled .enabled {
   box-shadow: 0 20px 54px rgb(8 36 92 / .12);
 }
 
+.airreclaim-document-zoom {
+  display: block;
+  min-width: 0;
+}
+
+.airreclaim-document-zoom__toolbar {
+  position: sticky;
+  top: .5rem;
+  z-index: 45;
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: .25rem;
+  margin: 0 0 .5rem auto;
+  padding: .25rem;
+  border: 1px solid var(--airreclaim-line);
+  border-radius: .75rem;
+  background: rgb(252 254 253 / .96);
+  box-shadow: 0 8px 24px rgb(8 36 92 / .1);
+  backdrop-filter: blur(12px);
+}
+
+.airreclaim-document-zoom__button,
+.airreclaim-document-zoom__reset {
+  display: inline-grid;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  place-items: center;
+  border: 0;
+  border-radius: .6rem;
+  background: transparent;
+  color: var(--airreclaim-navy);
+  font-size: 1.25rem;
+  font-weight: 750;
+  line-height: 1;
+}
+
+.airreclaim-document-zoom__reset {
+  min-width: 4.25rem;
+  font-size: .8rem;
+}
+
+.airreclaim-document-zoom__button:hover,
+.airreclaim-document-zoom__reset:hover {
+  background: #edf4fb;
+}
+
+.airreclaim-document-zoom__button:disabled {
+  cursor: default;
+  opacity: .38;
+}
+
+.airreclaim-document-zoom__viewport {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  overscroll-behavior-x: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.airreclaim-document-zoom__viewport.is-enlarged {
+  overflow-x: auto;
+}
+
+.airreclaim-document-zoom__canvas {
+  width: 100%;
+  min-width: 100%;
+  transition: width 160ms ease;
+}
+
+.airreclaim-form-shell #form_container {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
 .airreclaim-form-shell .base-button,
 .airreclaim-form-shell #complete_form_button,
 .airreclaim-form-shell .complete-button,
@@ -301,8 +376,12 @@ button[disabled] .enabled, button.btn-disabled .enabled {
   }
 
   .airreclaim-form-shell #signing_form_header {
-    top: .5rem;
+    top: max(.5rem, env(safe-area-inset-top));
     margin-bottom: 1rem;
+  }
+
+  .airreclaim-document-zoom__toolbar {
+    top: calc(max(.5rem, env(safe-area-inset-top)) + 4rem);
   }
 
   .airreclaim-document page-container {
