@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-release_version="3.1.2-ar.8"
+release_version="${AIRRECLAIM_DOCUSEAL_RELEASE_VERSION:-3.1.2-ar.8}"
 repository_root="$(git rev-parse --show-toplevel)"
 source_only=false
 
